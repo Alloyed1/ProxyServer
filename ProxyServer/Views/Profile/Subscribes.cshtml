@@ -1,0 +1,117 @@
+﻿
+@{
+    ViewData["Title"] = "Subscribes";
+}
+
+	<div class="container mt-5" id="main">
+		<div class="row">
+			<div class="col-10 text-center col-md-3 nav-panel" style="padding:0;margin:0">
+				<div class="nav-panel-block">
+					<a class="nav-panel-a" asp-action="Index" asp-controller="Profile">МОИ ПОДПИСКИ</a>
+				</div>
+				<div class="nav-panel-block   active-block">
+					<a class="nav-panel-a" asp-action="Subscribes" asp-controller="Profile">ПОКУПКА ПОДПИСКИ</a>
+				</div>
+				<div class="nav-panel-block last-block">
+					<a class="nav-panel-a" asp-action="ResetKey" asp-controller="Profile">ВОССТАНОВЛЕНИЕ КЛЮЧА</a>
+				</div>
+				<br />
+
+			</div>
+			<div class="col-12 offset-md-1 col-md-8 mt-5 mt-md-0 main-panel text-center pb-5">
+				<h1 class="text-center text-info">ПОКУПКА ПОДПИСКИ</h1>
+				<hr />
+				<h3 class="text-center text-info">1000 ПРОКСИ НА НЕДЕЛЮ = {{ price }} $</h3>
+				<h4 class="text-center mt-4">Информация:</h4>
+				<p class="mt-4">Уважаемый покупатель! После перевода денежный средств на биткоин кошелек ( он же <a asp-action="ResetKey" asp-controller="Profile">ваш ключ</a> ), вы должны убедиться, что транзакция успешно прошла, после чего вам нужно нажать на кнопку <span class="text-danger">"Я ОПЛАТИЛ"</span> внизу этой странице. При успешной оплате - вы активируете подписку на месяц. Цена указана вверху страницы, вы можете оплатить любую сумму, и отталкиваясь от нее, мы высчитаем кол-во прокси, в зависимости от цены на момент оплаты. Спасибо!</p>
+				<div class="btn123 mt-5">
+					<a class="button-profile " v-on:click.prevent="send" href="#">Я ОПЛАТИЛ</a>
+				</div>
+				<!-- Modal -->
+				<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+					<div class="modal-dialog modal-dialog modal-lg" role="document">
+						<div class="modal-content">
+							<div class="modal-header text-center">
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+							</div>
+							<div class="modal-body" v-if="orders.length != 0">
+								<h2 class="text-center text-success">ВАШИ НОВЫЕ ТРАНЗАКЦИИ</h2>
+								<hr />
+								<div class="row mt-5" v-for="order in orders">
+
+									<h4 class="w-100"><span class="text-secondary mt-3">Количество биткоинов:</span> {{order.countBitcoin}}</h4><br />
+									<h4 class=" w-100"><span class="text-secondary mt-3">Сумма:</span> {{parseFloat(order.countBitcoin) * parseFloat(order.priceBitcoint)}} $</h4>
+									<h4 class="w-100 text-center mt-5"><span class="text-info mt-3">Отправлено на внутренний баланс</span> {{ order.balanceAdd }}</h4>
+									<hr />
+								</div>
+								<h4 class="w-100 text-center mt-5"><span class="text-success mt-3">Количество прокси к получению:</span> {{allCount}}</h4>
+								
+							</div>
+							<div class="modal-body" v-else>
+								<h2 class="text-center text-danger">У ВАС НЕТ НОВЫХ ТРАНЗАКЦИЙ</h2>
+							</div>
+							<div class="modal-footer text-center" v-if="orders.length != 0">
+								<button type="button" class="btn btn-success text-center" asp-controller="Profile" asp-action="Index" data-dismiss="modal">Получить</button>
+							</div>
+							<div class="modal-footer text-center" v-else>
+								<button type="button" class="btn btn-danger text-center" data-dismiss="modal">Закрыть</button>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+@section  Scripts{ 
+<script type="text/javascript">
+	var main = new Vue({
+		el: '#main',
+		data: {
+			orders: [],
+			allCount: 0,
+			isLoad: false,
+			price: 0
+		},
+		mounted() {
+			$.ajax({
+					type: 'GET',
+					url: '/Home/GetPrice',
+					async: true,
+					success: (res) => {
+						main.price = res;
+					}
+				});
+		},
+		methods: {
+			send: function() {
+				event.preventDefault();
+				$.ajax({
+					type: 'GET',
+					url: '/Profile/CheckPay',
+					async: true,
+					data: {
+						email: '@User.Identity.Name'
+					},
+					success:(res) => {
+						console.log(res);
+						this.orders = res;
+						if (res.length != 0) {
+							this.allCount = res[0].bitcoinAddress;
+						}
+						
+						$('#exampleModalCenter').modal({
+							keyboard: false
+						});
+					}
+				});
+			}
+		}
+	});
+	
+</script>
+}
+
+

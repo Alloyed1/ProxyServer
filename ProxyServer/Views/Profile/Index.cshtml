@@ -1,0 +1,97 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+}
+
+	<div class="container mt-5" id="main">
+		<div class="row">
+			<div class="col-10 text-center col-md-3 nav-panel" style="padding:0;margin:0">
+				<div class="nav-panel-block active-block">
+					<a class="nav-panel-a" asp-action="Index" asp-controller="Profile">МОИ ПОДПИСКИ</a>
+				</div>
+				<div class="nav-panel-block">
+					<a class="nav-panel-a" asp-action="Subscribes" asp-controller="Profile">ПОКУПКА ПОДПИСКИ</a>
+				</div>
+				<div class="nav-panel-block last-block">
+					<a class="nav-panel-a" asp-action="ResetKey" asp-controller="Profile">ВОССТАНОВЛЕНИЕ КЛЮЧА</a>
+				</div>
+				<br />
+				
+			</div>
+			<div class="col-12 offset-md-1 col-md-8 mt-5 mt-md-0 main-panel">
+				<h1 class="text-center text-info">ВАШИ ПОДПИСКИ</h1>
+				<hr />
+				<table class="table">
+					<thead class="thead-light">
+						<tr>
+							<th scope="col">#</th>
+							<th scope="col">Статус</th>
+							<th scope="col">Количество прокси</th>
+							<th scope="col">Закончится</th>
+							<th scope="col">Действие</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr v-for="(sub, index) in subscribes">
+							<th scope="row">{{index + 1}}</th>
+							<td :class="(sub.isAvaible == 'Активно') ? 'text-success': 'text-danger'">{{ sub.isAvaible }}</td>
+							<td>{{ sub.countProxy }}</td>
+							<td>{{ moment(sub.endTime).format('ll')}}</td>
+							<td class="d-flex">
+								<a href="#" v-if="sub.isAvaible == 'Активно'" v-on:click.prevent="showSub()" class="btn btn-info">ПОСМОТРЕТЬ</a>
+								@*<a href="#" v-if="sub.isAvaible == 'Активно'" v-on:click.prevent="showSub()" class="btn btn-primary ml-2">ПРОДЛИТЬ</a>*@
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+@section Scripts{
+<script src="https://momentjs.com/downloads/moment.js"></script>
+<script type="text/javascript">
+	var main = new Vue({
+		el: '#main',
+		data: {
+			subscribes: [],
+			key: ''
+		},
+		methods: {
+			showSub: function () {
+				window.location.href = "/Profile/GetSub?key=" + main.key + "";
+			}
+		},
+		mounted() {
+			$.ajax({
+				type: 'GET',
+				url: '/Profile/GetSubscribes',
+				async: true,
+				success: (res) => {
+					res.forEach((el) => {
+						console.log(moment(el.endTime).format('ll') - moment(el.startTime).format('ll'))
+						if (el.isAvaible == true) {
+							el.isAvaible = 'Активно'
+						}
+						else {
+							el.isAvaible = 'Завершено'
+						}
+					});
+					this.subscribes = res;
+				}
+			});
+			$.ajax({
+				type: 'GET',
+				url: '/Profile/GetKey',
+				data: {
+					email: '@User.Identity.Name'
+				},
+				async: true,
+				success: (res) => {
+					this.key = res;
+				}
+			});
+		}
+	});
+</script>
+ }
+

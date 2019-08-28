@@ -1,0 +1,72 @@
+﻿
+@{
+    ViewData["Title"] = "ResetKey";
+}
+
+	<div class="container mt-5">
+		<div class="row">
+			<div class="col-10 text-center col-md-3 nav-panel" style="padding:0;margin:0">
+				<div class="nav-panel-block">
+					<a class="nav-panel-a"asp-action="Index" asp-controller="Profile">МОИ ПОДПИСКИ</a>
+				</div>
+				<div class="nav-panel-block">
+					<a class="nav-panel-a" asp-action="Subscribes" asp-controller="Profile">ПОКУПКА ПОДПИСКИ</a>
+				</div>
+				<div class="nav-panel-block last-block  active-block">
+					<a class="nav-panel-a" asp-action="ResetKey" asp-controller="Profile">ВОССТАНОВЛЕНИЕ КЛЮЧА</a>
+				</div>
+				<br />
+
+			</div>
+			<div class="col-12 offset-md-1 col-md-8 mt-5 mt-md-0 main-panel text-center pb-5">
+				<h1 class="text-center text-info">ВОССТАНОВЛЕНИЕ КЛЮЧА</h1>
+				<hr />
+				<div class="input-group input-group-alternative mb-3">
+					<div class="input-group-prepend">
+						<span class="input-group-text"><i class="fa fa-envelope"></i></span>
+					</div>
+					<input id="emailInput" class="form-control" placeholder="Введите email, который вы вводили при регистрации" type="text">
+
+				</div>
+				<div class="btn-block mt-4">
+					<a class="button-profile text-info" onclick="checkKey()" asp-area="">Восстановить</a>
+				</div>
+				<div class="mt-5 text-center" id="keys" hidden>
+					<h1>ВАШ КЛЮЧ:</h1>
+					<h4 id="key" style="background:#d0d0d0"></h4>
+				</div>
+				<div class="mt-5 text-center" id="error" hidden>
+					<h4 class="text-danger">ОШИБКА, ВЫ ВВЕЛИ НЕПРАВИЛЬНЫЙ EMAIL</h4>
+				</div>
+
+			</div>
+		</div>
+	</div>
+@section  Scripts{
+	<script type="text/javascript">
+	function checkKey() {
+		event.preventDefault();
+			$.ajax({
+				el: 'GET',
+				url: '/Account/CheckKey',
+				async: true,
+				data: {
+					email: $('#emailInput').val(),
+					userEmail: '@User.Identity.Name'
+				},
+				success: function (res) {
+					if (res != undefined) {
+						$("#error").attr("hidden", true);
+						$("#key").text(res);
+						$("#keys").removeAttr("hidden");
+					}
+					else {
+						$("#error").removeAttr("hidden");
+						$("#keys").attr("hidden", true);
+					}
+				}
+			});
+		}
+	</script>
+ }
+

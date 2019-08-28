@@ -1,0 +1,66 @@
+﻿
+@model ProxyServer.ViewModels.AuthViewModel
+@{
+	ViewData["Title"] = "Auth";
+	Layout = "/Views/Shared/_LayoutAuth.cshtml";
+}
+<link rel="stylesheet" href="~/css/registerandLogin.css">
+<div class="container mt-4 pb-5" id="register__form">
+	<!-- Table -->
+	<div class="row justify-content-center">
+		<div class="col-lg-6 col-md-8">
+			<div class="card bg-secondary shadow border-0">
+				<div class="card-body px-lg-5 py-lg-5">
+					<div class="text-center text-muted mb-4">
+						<small>Авторизация</small>
+					</div>
+					<form method="post" asp-controller="Account" asp-action="Auth">
+						<div asp-validation-summary="ModelOnly" class="text-warning  pb-3 ml-2"></div>
+						<div class="form-group">
+							<div class="input-group input-group-alternative mb-3">
+								<div class="input-group-prepend">
+									<span class="input-group-text"><i class="fa fa-key"></i></span>
+								</div>
+								<input asp-for="Bitcoin" class="form-control" placeholder="Секретный ключ" type="password">
+							</div>
+						</div>
+						<div class="row my-4">
+							<div class="col-12">
+								<div class="custom-control custom-control-alternative custom-checkbox">
+									<input asp-for="RememberMe" class="custom-control-input" id="customCheckRegister" type="checkbox">
+									<label class="custom-control-label" for="customCheckRegister">
+										<span class="text-muted"><a href="#!"></a></span>
+										Запомнить меня
+									</label>
+
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-12">
+								<div class="text-center">
+									<button type="submit" class="btn btn-primary">Войти</button>
+								</div>
+							</div>
+							<div class="col-12">
+								<div class="text-center">
+									<a asp-action="Register" asp-controller="Account">Не зарегистрированы?</a>
+								</div>
+							</div>
+						</div>
+						<div class="text-center">
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+@section Scripts {
+	@{await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+	<script type="text/javascript">
+
+
+	</script>
+}
+

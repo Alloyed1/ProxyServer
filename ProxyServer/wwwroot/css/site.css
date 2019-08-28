@@ -1,0 +1,266 @@
+﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
+for details on configuring this project to bundle and minify static web assets. */
+
+a.navbar-brand {
+  white-space: normal;
+  text-align: center;
+  word-break: break-all;
+}
+
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+  font-size: 14px;
+}
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.border-top {
+  border-top: 1px solid #e5e5e5;
+}
+.border-bottom {
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.box-shadow {
+  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+}
+
+button.accept-policy {
+  font-size: 1rem;
+  line-height: inherit;
+}
+
+
+
+html, body {
+	height: 100%;
+	background: #eee;
+}
+
+.wrapper {
+	padding: 50px 0;
+	border-bottom: 1px solid rgba(0,0,0,.1);
+	background: #fff;
+}
+
+#canvas {
+	display: block;
+	margin: 0 auto;
+}
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+	/* Margin bottom by footer height */
+	margin-bottom: 60px;
+	font-family: Open Sans, sans-serif;
+}
+a{
+	text-decoration: none;
+}
+a:hover{
+	text-decoration: none;
+}
+.register_btn{
+	padding: 4px 4px 4px 4px;
+	border: 1.45px solid black;
+	border-radius: 5px;
+	position: relative;
+	transition: all 0.2s ease;
+}
+	.register_btn:hover {
+		background: orange;
+		box-shadow: 3px 4px 10px rgba(0,0,0,0.5);
+		border: 1.45px solid orange;
+	}
+
+.brand {
+	position: relative;
+	transition: all 0.3s ease;
+}
+	.brand::before {
+		content: '';
+		position: absolute;
+		top: 94%;
+		left: 0;
+		width: 100%;
+		background: orange;
+		height: 0%;
+		transition: all 0.3s ease;
+		transform: scaleX(0);
+	}
+	.brand:hover::before {
+		height: 4% !important;
+		transform: scaleX(1);
+	}
+	.test{
+		border: 1px solid red;
+	}
+
+.title {
+	height: 500px;
+	background: linear-gradient( rgba(0, 0, 0, 0.59), rgba(0, 0, 0, 0.59) ),
+		url(../img/server-datacenter-1732x1154-wallpaper1.jpg);
+	background-position-y: center;
+}
+.proxy-count {
+	padding: 12px 55px;
+	background: orange;
+	color: white;
+	box-shadow: 0 0 10px rgba(0,0,0,0.5);
+}
+.buy_btn {
+	background: orange;
+	margin-top: 15px !important;
+	padding: 11px 45px 11px 45px;
+	color: white;
+	font-size: 19px;
+	transition: all 0.25s ease;
+}
+	.buy_btn:hover {
+		background: #ce8500;
+		color: white;
+		box-shadow: 0 0 10px rgba(0,0,0,0.5);
+	}
+
+.feature {
+	background: white;
+}
+.feature-text-title {
+	position: relative;
+	transition: all 0.3s ease;
+}
+	.feature-text-title::before {
+		content: '';
+		position: absolute;
+		top: 94%;
+		left: 0;
+		width: 100%;
+		background: orange;
+		height: 0%;
+		transition: all 0.3s ease;
+		transform: scaleX(0);
+	}
+
+.feature-block:hover .feature-text-title::before {
+	height: 6% !important;
+	transform: scaleX(1);
+	color:orange!important;
+}
+.feature-block:hover .feature-text-title .icon-feature {
+	color: orange !important;
+}
+.icon-feature{
+	transition: all 0.25s ease;
+}
+.feature-block:hover  .icon-feature {
+	color: orange !important;
+}
+
+.hidden{
+	opacity:0;
+}
+visible {
+	opacity: 1;
+}
+
+.graph {
+	background: white;
+}
+.canvas {
+	width: 900px!important;
+	height: 300px!important;
+}
+.country{
+	background: white;
+}
+.footer{
+	background:#e5e5e5;
+}
+.nav-panel {
+	background: #e5e5e5;
+	box-shadow: 0 .25rem .75rem rgba(0, 0, 0, 0.15);
+	height: 100%;
+}
+.nav-panel-block{
+	padding-top:15px;
+	padding-bottom: 15px!important;
+	transition: background, box-shadow, 0.3s ease;
+}
+	.nav-panel-block:hover {
+		background: orange;
+		box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+	}
+.last-block {
+	padding: 15px 0 0px 0;
+}
+.active-block {
+	background: orange;
+	box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+}
+.nav-panel-a{
+	color:black;
+}
+.nav-panel-a:hover {
+	color: black;
+}
+.main-panel {
+	background: #e5e5e5;
+	box-shadow: 0 .25rem .75rem rgba(0, 0, 0, 0.15);
+}
+.button-profile{
+	padding: 10px 25px;
+	color:black!important;
+	border: 2.4px solid orange;
+	transition: all 0.3s ease;
+}
+.button-profile:hover {
+	padding: 10px 25px;
+	color: white!important;
+	border: 2.4px solid orange;
+	background:orange;
+	transform: scaleY(1.2);
+}
+
+
+@media screen and (max-width: 600px) {
+	.title {
+		height: 915px;
+	}
+
+	.register_btn {
+		border: none !important;
+	}
+}
+@media screen and (max-width: 769px) {
+	.title {
+		height: 1055px!important;
+	}
+}
+@media screen and (max-width: 420px) {
+	.title {
+		height: 1195px !important;
+	}
+}
+@media screen and (max-width: 991px) {
+	.title {
+		height: 755px;
+	}
+}
+
+
+@media screen and (max-width: 1200px) {
+	.title {
+		height: 690px;
+	}
+}
+
+

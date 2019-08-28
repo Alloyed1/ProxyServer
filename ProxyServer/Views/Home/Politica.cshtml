@@ -1,0 +1,32 @@
+﻿@{
+	ViewData["Title"] = "Privacy Policy";
+}
+<div class="container" id="main">
+	<h1 class="text-center text-info">Политика конфиденциальности</h1>
+	<h5 v-for="(prav, index) in pravila">
+		{{index + 1}}. {{prav}}
+	</h5>
+</div>
+@section Scripts{
+	<script type="text/javascript">
+		var main = new Vue({
+			el: '#main',
+			data: {
+				pravila:[]
+			},
+			mounted() {
+				$.ajax({
+					type: 'GET',
+					url: '/Home/GetPolitica',
+					async: true,
+					success: (res) => {
+						res.forEach(function (el) {
+							main.pravila.push(el.body);
+						});
+					}
+				});
+			}
+		});
+	</script>
+}
+

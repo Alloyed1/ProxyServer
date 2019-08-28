@@ -1,0 +1,33 @@
+﻿@model  string
+@{
+    ViewData["Title"] = "GetInfo";
+}
+	<link rel="stylesheet" href="~/css/registerandLogin.css">
+	<div class="container">
+		<div class="row mt-5">
+			<div class="col-12 text-center">
+				<h1>ВНИМАНИЕ!</h1>
+			</div>
+			<div class="col-12 text-center ">
+				<h4 class="text-center text-danger" style="background:#d0d0d0">@ViewBag.Bitcoin</h4>
+			</div>
+			<div class="col-12 mt-3 text-center">
+				<h1>СОХРАНИТЕ КЛЮЧ! И НИКОМУ ЕГО НЕ ПОКАЗЫВАЙТЕ</h1>
+			</div>
+			<div class="col-12 pb-3" style="background:#d0d0d0">
+				<h4 class="text-center">Этот ключ будет использоваться для:</h4>
+				<h5 class="text-danger">- Вход в аккаунт</h5>
+				<h5 class="text-danger">- Оплата подписки</h5>
+				<h5 class="text-danger">- Получение вашего товара</h5>
+
+				<div class="text-center">
+					<form  asp-action="Index" asp-controller="Home">
+						<button type="submit"  class="btn btn-danger">Продолжить</button>
+					</form>
+					
+				</div>
+			</div>
+			
+		</div>
+	</div>
+
