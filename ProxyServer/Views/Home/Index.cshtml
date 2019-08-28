@@ -83,6 +83,14 @@
 	<section class="country">
 		<div class="container">
 			<h1 style="color:orange" class="text-center bounceInn">СПИСОК СТРАН</h1>
+            <div class="d-flex justify-content-end pt-4 pb-4">
+                <h5>Сортировка по :</h5>
+                <select v-model="sort">
+                    <option value="1">Алфавиту</option>
+                    <option value="2">Количеству</option>
+                </select>
+            </div>
+           
 			<div class="row">
 					<div class="col-12 col-md-4 d-flex align-items-center zoomInn" v-for="city in cities" style="margin: -10px;">
 						<img style="width:6%;" :src="city.url">
@@ -109,8 +117,29 @@
 				countProxy: 0,
 				cities: [],
 				preimushName: [],
-				preimushBody: []
-			},
+                preimushBody: [],
+                sort: 2
+            },
+            watch: {
+                sort: function (value) {
+                    if (value == 1) {
+                        main.cities.sort(function (a, b) {
+                            var nameA = a.cityName.toLowerCase(), nameB = b.cityName.toLowerCase()
+                            if (nameA < nameB) //сортируем строки по возрастанию
+                              return -1
+                            if (nameA > nameB)
+                              return 1
+                            return 0 // Никакой сортировки
+                        });
+
+                    } else if (value == 2) {
+                        main.cities.sort(function (a, b) {
+                            return a.cityIpCount - b.cityIpCount;
+                        }).reverse();
+                    }
+
+                }
+            },
 			mounted() {
 				$.ajax({
 					type: 'GET',
